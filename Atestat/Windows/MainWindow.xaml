@@ -1,0 +1,355 @@
+﻿<Window x:Class="Atestat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:Atestat.ViewModels"
+        xmlns:views="clr-namespace:Atestat.Views"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        Title="MainWindow" 
+        Height="750" 
+        Width="1028"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True" >
+    
+    
+    <Window.Resources>
+
+        
+        <DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
+            <views:HomePageView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:MarketPageViewModel}">
+            <views:MarketPageView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:FavoritesPageViewModel}">
+            <views:FavoritesPageView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:OrderPageViewModel}">
+            <views:OrderPageView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ProfilePageViewModel}">
+            <views:ProfilePageView />
+        </DataTemplate>
+
+
+    </Window.Resources>
+
+
+    <Border CornerRadius="12">
+
+
+        <Border CornerRadius="10"
+                BorderThickness="2"
+                Opacity="1">
+            
+            
+        <!--Border gradient-->
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#097975" Offset="0.5"/>
+                    <GradientStop Color="#333533" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+            <!-- Background gradient-->
+        <Border.Background>
+
+            <LinearGradientBrush StartPoint="1,1" EndPoint="1,1">
+
+                    <GradientStop Color="#4361EE" Offset="0"/>
+                    <GradientStop Color="#F2F2F7" Offset="1"/>
+
+            </LinearGradientBrush>
+
+        </Border.Background>
+
+
+            <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+
+            </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"  />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+
+                <!--Window Buttons-->
+            <StackPanel Grid.Column="2"
+                        Grid.Row="0"
+                        Orientation="Horizontal" >
+
+
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="BtnMinimize_Click"
+                            Margin="0,0,8,0"
+                        >
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Click="BtnClose_Click">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#DA34AE"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#C62DAE"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+                
+
+
+            </StackPanel>
+
+            <!-- Support page-->
+
+            <RadioButton Grid.Row="2" 
+                     Grid.Column="2" 
+                     HorizontalAlignment="Right" 
+                     VerticalAlignment="Bottom" 
+                     Style="{StaticResource profileButton}"                
+                     Tag="{StaticResource color1}">
+
+
+            </RadioButton>
+
+            <!-- Logo and profile -->
+                <Button Grid.RowSpan="2"
+                        Click="AddImage"
+                        Width="{Binding ElementName=imgSelectedImage, Path=ActualWidth}"
+                        Height="{Binding ElementName=imgSelectedImage, Path=ActualHeight}">
+
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            
+                        </ControlTemplate>
+                    </Button.Template>
+
+                    <Border Background="Transparent"
+                            BorderBrush="Gray"
+                            BorderThickness="0"
+                            CornerRadius="360">
+
+                        <Image     Source="{Binding UserAvatar}"
+                                   x:Name="imgSelectedImage"
+                                   Margin="0,0,0,0"
+                                   Height="100"
+                                   Width="100"
+                                   Stretch="Uniform" />
+
+                    </Border>
+
+                    </Button>
+                
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Grid.ColumnSpan="3"
+                    Grid.Row="1">
+
+                <RadioButton Grid.Column="1" 
+                         HorizontalAlignment="Right" 
+                         Style="{StaticResource profileButton}"
+                         Tag="{StaticResource color1}"
+                         Command="{Binding ProfilePageCommand}">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialIcons:MaterialIcon Width="36" 
+                                                Height="36" 
+                                                Kind="User" 
+                                 Tag="{StaticResource color1}"
+                                                Foreground="Gray" />
+
+                        <TextBlock FontSize="20" 
+                                   Margin="10,0,0,0"
+                               Foreground="#4361EE" 
+                               Text="{Binding UserName}" 
+                               Style="{StaticResource menuButtonText}" 
+                               Tag="{StaticResource color1}" />
+                    </StackPanel>
+
+                </RadioButton>
+
+                <RadioButton Command="{Binding LogOutCommand}" 
+                         Grid.Row="1" 
+                         Grid.Column="2" 
+                         VerticalAlignment="Center" 
+                         Style="{StaticResource profileButton}"
+                         Tag="{StaticResource color1}">
+
+                    <fa:IconImage Width="30" 
+                              Height="30" 
+                              Icon="SignOut" 
+                              Tag="{StaticResource color1}"
+                              Style="{StaticResource menuButtonIcon}" 
+                              Foreground="Gray" />
+
+                </RadioButton>
+
+            </StackPanel>
+
+
+            <!--Navigation panel-->
+            <StackPanel Grid.Row="2" Orientation="Vertical" >
+
+
+                <!-- Home Button -->
+                <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="True"
+                                 Command="{Binding HomePageCommand}">
+
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="Home" 
+                                  Style="{StaticResource menuButtonIcon}"/>
+
+                        <TextBlock Text="Home" 
+                               Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </RadioButton>
+
+
+                <!-- Market Button -->
+                <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="False"
+                                 Command="{Binding MarketPageCommand}">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <fa:IconImage Icon="Shop" 
+                                  Style="{StaticResource menuButtonIcon}"/>
+
+                        <TextBlock Text="Market" 
+                               Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </RadioButton>
+
+                <!-- Favorite Button -->
+                <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="False"
+                                 Command="{Binding FavoritePageCommand}">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <fa:IconImage Icon="Heart" 
+                                  Style="{StaticResource menuButtonIcon}"/>
+
+                        <TextBlock Text="Favorites" 
+                               Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </RadioButton>
+
+                <!-- Order Button -->
+                <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="False"
+                                 Command="{Binding OrderPageCommand}">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <fa:IconImage Icon="CartArrowDown" 
+                                  Style="{StaticResource menuButtonIcon}"/>
+
+                        <TextBlock Text="Order" 
+                               Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </RadioButton>
+
+
+            </StackPanel>
+
+
+
+            <Frame NavigationUIVisibility="Hidden" 
+               Content="{Binding CurrentPage}" 
+               Grid.Column="1" 
+               Grid.Row="2"
+                   Width="804"
+                   Height="620"/>
+
+
+            <!--<DataGrid ItemsSource="{Binding Users}" />-->
+        </Grid>
+        </Border>
+
+    </Border>
+</Window>

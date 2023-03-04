@@ -1,0 +1,246 @@
+﻿<Page x:Class="Atestat.Views.MarketPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF" 
+      xmlns:local="clr-namespace:Atestat.Views"
+      xmlns:viewmodels="clr-namespace:Atestat.ViewModels" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:MarketPageViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="810"
+      Title="MarketPageView"
+      Background="Transparent" 
+      Loaded="Page_Loaded" >
+
+
+    <Page.DataContext>
+        <viewmodels:MarketPageViewModel />
+    </Page.DataContext>
+
+
+    <Page.Resources>
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Styles/UIColors.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+
+
+    </Page.Resources>
+
+    <Grid>
+
+
+
+        <!--<ListView Style="{StaticResource MarketItems}" />-->
+
+
+        <ListBox x:Name="myListBox" 
+                 ItemsSource="{Binding ItemsList}"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 BorderThickness="0"
+                 Background="Transparent">
+
+
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Grid Background="Transparent" 
+                          SnapsToDevicePixels="True" 
+                          Width="239" 
+                          Height="393"
+                          >
+
+                        <StackPanel Orientation="Vertical"
+                                    Background="White" 
+                                    >
+
+                           
+                            <!--Add to favorites-->
+                            <Button Click="AddToFavorite_Click"
+                                    x:Name="AddToFavoritesButton"
+                                     Width="22" 
+                                     Margin="0,5,10,0"
+                                     Height="42" 
+                                     HorizontalAlignment="Right"  
+                                     Background="Transparent">
+
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="White"
+                                                BorderBrush="Transparent"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="360" >
+
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                            </Trigger>                                        
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+
+
+                                <Image Source="/Images/heart.png"
+                                       x:Name="AddToFavImage"
+                                        Width="22" 
+                                        Height="22" 
+                                        HorizontalAlignment="Center"  
+                                        VerticalAlignment="Center" />
+
+
+                            </Button>
+
+
+
+                            <Image Source="{Binding Image}" 
+                                   Height="229" 
+                                   Width="200" 
+                                   />
+
+                            <StackPanel Orientation="Vertical" 
+                                        >
+
+                                <TextBlock Margin="0,20,0,0" 
+                                           Text="{Binding Title}" 
+                                           Height="38" 
+                                           Style="{StaticResource listBoxText}"
+                                           HorizontalAlignment="Center"
+                                           FontSize="18"
+                                           />
+
+
+                                <Grid Margin="10,0,10,0">
+
+                                    <TextBlock  
+                                        Text="{Binding Price, StringFormat={}{0:C}/h}"                                        
+                                        Style="{StaticResource listBoxPrice}"
+                                        HorizontalAlignment="Left" 
+                                        VerticalAlignment="Center" 
+                                        FontSize="20"  />
+
+                                    
+                                    <!--Add to cart-->
+                                    <Button Click="Button_Click"
+                                            Width="52" 
+                                            Height="52" 
+                                            HorizontalAlignment="Right"  
+                                            Background="{StaticResource CartGradient}">
+
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        CornerRadius="12" >
+                                                                                                            
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsEnabled" Value="False">
+                                                        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+
+                                        <materialIcons:MaterialIcon Kind="Cart"  
+                                                                    x:Name="CartButton"
+                                                                    HorizontalAlignment="Center" 
+                                                                    Width="36"
+                                                                    Height="36"  
+                                                                    Foreground="White"
+                                                                    />
+
+                                    </Button>
+                                    
+                                </Grid>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+
+            <!--#region Modul in care sunt asezate item-ele (ItemsPanel)
+            -->
+
+            <ListBox.ItemsPanel>
+
+                <ItemsPanelTemplate>
+
+                    <WrapPanel />
+
+                </ItemsPanelTemplate>
+
+            </ListBox.ItemsPanel>
+
+            <!--#endregion-->
+
+
+            <!--#region  Items style (car style)-->
+
+            <ListBox.ItemContainerStyle>
+
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="6"/>
+                    <Setter Property="TextBlock.FontFamily" Value="Impact" />
+
+
+                    <!-- Item selected-->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}" >
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="Border" Property="Background" Value="white" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="#4361EE" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="white" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="#4361EE" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter TargetName="Border" Property="Background" Value="White" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="white" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <!--#endregion-->
+
+        </ListBox>
+
+
+    </Grid>
+    
+</Page>
